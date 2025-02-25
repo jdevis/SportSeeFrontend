@@ -1,0 +1,31 @@
+@use '../../assets/styles/colors' as *;
+
+nav{
+    width: 10%;
+    background-color: $default-color;
+    color: $third-color;
+    display: flex;
+    flex-direction: column;
+    place-items: center;
+    justify-content: space-around;
+    ul{
+      margin: 4em 0;  
+      li{
+          width: 64px;
+          height: 64px;
+          background-color: $third-color;
+          border-radius: .5em;
+          margin: 1em 0;
+          display: flex;
+          place-items: center;
+          img{
+              margin: auto;
+          }
+      }
+    }
+    p{
+        writing-mode: sideways-lr;
+		margin: 2em 0;
+		font-size: .75em;
+    }
+}

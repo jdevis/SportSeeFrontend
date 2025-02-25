@@ -1,0 +1,43 @@
+@use 'colors' as *;
+
+:root {
+    font-family: Roboto, Arial, Helvetica, sans-serif;
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    color: $default-color;
+}
+
+body {
+    margin: 0;
+    display: flex;
+    min-width: 1024px;
+    min-height: 100vh;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+a{
+    text-decoration: none;
+}
+
+#root {
+    max-width: 1440px;
+    margin: 0 auto;
+    width: 100%;
+    position: relative;
+}
+
+main {
+    max-width: 1240px;
+    width: 100%;
+    display: flex;
+    position: absolute;
+    margin: 2em;
+    top: 8%;
+    left: 10%;
+}

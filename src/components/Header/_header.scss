@@ -1,0 +1,24 @@
+@use '../../assets/styles/colors' as *;
+
+header{
+	color: $third-color;
+	background-color: $default-color;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	justify-content: space-between;
+	width: 100%;
+	padding: 1em;
+	img{
+		width:180px ;
+		height: 60px;
+	}
+	ul{
+		display: flex;
+		flex-direction: row;
+		flex-wrap: nowrap;
+		justify-content: space-between;
+		width: 75%;
+		padding-right: 2em;
+	}
+}
