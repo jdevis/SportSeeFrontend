@@ -22,6 +22,9 @@ ul {
 }
 
 a{
+    text-decoration: underline;
+}
+a:hover{
     text-decoration: none;
 }
 
@@ -29,15 +32,13 @@ a{
     max-width: 1440px;
     margin: 0 auto;
     width: 100%;
-    position: relative;
 }
 
 main {
-    max-width: 1240px;
-    width: 100%;
+    max-width: 1440px;
     display: flex;
-    position: absolute;
-    margin: 2em;
-    top: 8%;
-    left: 10%;
+    .home,.error{
+        margin: 0 auto;
+        justify-items: center;
+    }
 }

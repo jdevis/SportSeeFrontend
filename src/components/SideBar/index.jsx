@@ -1,9 +1,9 @@
-import './_nav.scss';
+import './_sideBar.scss';
 import Yoga from '../../assets/img/yoga.png';
 import Swim from '../../assets/img/swim.png';
 import Dumbbell from '../../assets/img/dumbbell.png';
 import Bike from '../../assets/img/bike.png';
-const Nav = () =>{
+const SideBar = () =>{
     return (
 		<nav>
 			<ul>
@@ -16,4 +16,4 @@ const Nav = () =>{
 		</nav>
 	)
 }
-export default Nav
+export default SideBar

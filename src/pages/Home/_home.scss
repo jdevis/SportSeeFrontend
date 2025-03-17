@@ -1,0 +1,17 @@
+@use '../../assets/styles/colors' as *;
+
+.home{
+    h1{
+        font-size: 3em;
+    }
+    p{
+        padding: 1em 0;
+    }
+    a{
+        border-radius: .5em ;
+        background-color: $secondary-color;
+        color: $primary-color;
+        padding: 1em;
+        margin: 2em;
+    }
+}

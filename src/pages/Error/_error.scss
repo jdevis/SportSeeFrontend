@@ -1,0 +1,11 @@
+@use '../../assets/styles/colors' as *;
+
+.error{
+    h1{
+        font-size: 85px;
+        color: $primary-color;
+    }
+    a,a:hover{
+        color: $primary-color;
+    }
+}

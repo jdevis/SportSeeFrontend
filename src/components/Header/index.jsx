@@ -5,7 +5,7 @@ const Header = () =>{
 		<header>
 			<img src={Logo} alt="Logo SportSee" />
 			<ul>
-				<li>Accueil</li>
+				<li><a href='/'>Accueil</a></li>
 				<li>Profil</li>
 				<li>Réglage</li>
 				<li>Communauté</li>
