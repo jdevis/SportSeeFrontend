@@ -14,15 +14,21 @@
         flex-direction: row;
         flex-wrap: nowrap;
         justify-content: space-between;
+        place-items: center;
         .graph{
             width: 70%;
+            .recharts-responsive-container{
+                background-color: $primary-bg;
+                border-radius: .25em;
+            }
             .row{
                 display: flex;
+                justify-content: space-between;
+                margin-top: 3em;
+                .recharts-responsive-container{
+                    width: 30%;
+                }
             }
-        .recharts-wrapper{
-            background-color: $primary-bg;
-            border-radius: .25em;
-        }
         }
         .recap{
             width: 27%;
