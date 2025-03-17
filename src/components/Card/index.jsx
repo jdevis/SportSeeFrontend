@@ -1,5 +1,6 @@
+import '../Card/_card.scss'
 
-const Cards = ({value,icon,name,unit}) => {
+const Card = ({value,icon,name,unit}) => {
     return (
             <article className='card'>
                 <img src={icon} alt={`Icone ${name}`} />
@@ -10,4 +11,4 @@ const Cards = ({value,icon,name,unit}) => {
             </article>
     )
 }
-export default Cards
+export default Card

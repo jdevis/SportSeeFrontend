@@ -1,17 +1,31 @@
 @use '../../assets/styles/colors' as *;
 
 .profil{
-    margin: 0 auto;
+    margin: 2em 4em;
+    width: 100%;
     h1{
         font-size: 42px;
         span{
             color: $primary-color;
         }
     }
-    .graph{
+    .graphWrapper{
         display: flex;
         flex-direction: row;
         flex-wrap: nowrap;
         justify-content: space-between;
+        .graph{
+            width: 70%;
+            .row{
+                display: flex;
+            }
+        .recharts-wrapper{
+            background-color: $primary-bg;
+            border-radius: .25em;
+        }
+        }
+        .recap{
+            width: 27%;
+        }
     }
 }
