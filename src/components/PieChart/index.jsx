@@ -10,6 +10,10 @@ const PieCharts = ({ data }) => {
 	return (
 		<ResponsiveContainer height={250}>
 			<PieChart>
+				<text x={10} y={10} fill="#20253A" fontWeight={500} textAnchor="left" dominantBaseline="central">
+					<tspan fontSize="15" fontWeight="bold" >Score</tspan>
+				</text>
+				<circle cx="50%" cy="50%" r="90" fill="#fff" />
 				<Pie
 					data={fullScore}
 					dataKey='value'
@@ -35,6 +39,11 @@ const PieCharts = ({ data }) => {
 					<Cell fill="#e60000" />
 					<Cell fill="transparent" />
 				</Pie>
+				<text x={"50%"} y={"50%"} fill="#20253A" fontWeight={500} textAnchor="middle" dominantBaseline="central">
+					<tspan x={"50%"} y={"45%"} fontSize="26">{percentage}%</tspan>
+					<tspan x={"50%"} y={"54%"} fontSize="16" fill='#74798C'>de votre</tspan>
+					<tspan x={"50%"} y={"62%"} fontSize="16" fill='#74798C'>objectif</tspan>
+				</text>
 			</PieChart>
 		</ResponsiveContainer>
 	)

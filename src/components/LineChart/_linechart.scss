@@ -1,0 +1,8 @@
+@use '../../assets/styles/colors' as *;
+
+.custom-tooltip-line {
+    background-color: $third-color;
+    padding:.5em;
+    color: $default-color;
+    font-size: xx-small;
+}

@@ -17,16 +17,41 @@
         place-items: center;
         .graph{
             width: 70%;
-            .recharts-responsive-container{
-                background-color: $primary-bg;
+            .container{
                 border-radius: .25em;
+                padding: 1em;
+                .graphHeader{
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: space-between;
+                    h2{
+                        font-size: smaller;
+                    }
+                    .legend{
+                        color: $secondary-color;
+                        font-size: smaller;
+                        span{
+                            font-size: x-large;
+                        }
+                    }
+                }
+            }
+            .default{
+                background-color: $primary-bg;
+            }
+            .second{
+                background-color: $primary-color;
+                margin: 0;
+            }
+            .third{
+                background-color: $black-opacity;
             }
             .row{
                 display: flex;
                 justify-content: space-between;
                 margin-top: 3em;
-                .recharts-responsive-container{
-                    width: 30%;
+                .container{
+                    width: 27%;
                 }
             }
         }

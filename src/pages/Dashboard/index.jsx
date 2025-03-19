@@ -20,31 +20,31 @@ const Dashboard = () => {
 
 	const averageFalse = [
 		{
-			day: 1,
+			day: "L",
 			sessionLength: 30
 		},
 		{
-			day: 2,
+			day: "M",
 			sessionLength: 23
 		},
 		{
-			day: 3,
+			day: "M",
 			sessionLength: 45
 		},
 		{
-			day: 4,
+			day: "J",
 			sessionLength: 50
 		},
 		{
-			day: 5,
+			day: "V",
 			sessionLength: 0
 		},
 		{
-			day: 6,
+			day: "S",
 			sessionLength: 0
 		},
 		{
-			day: 7,
+			day: "D",
 			sessionLength: 60
 		}
 	]
@@ -88,27 +88,27 @@ const Dashboard = () => {
 	const performanceFalse = [
 		{
 			value: 80,
-			kind: 1
+			kind: "Cardio"
 		},
 		{
 			value: 120,
-			kind: 2
+			kind: "Energie"
 		},
 		{
 			value: 140,
-			kind: 3
+			kind: "Endurance"
 		},
 		{
 			value: 50,
-			kind: 4
+			kind: "Force"
 		},
 		{
 			value: 200,
-			kind: 5
+			kind: "Vitesse"
 		},
 		{
 			value: 90,
-			kind: 6
+			kind: "Intensité"
 		}
 	]
 	const score = 0.12
@@ -118,14 +118,26 @@ const Dashboard = () => {
 			<p>Félicitations ! Vous avez explosé vos objectifs hier 👏</p>
 			<div className='graphWrapper'>
 				<div className='graph'>
-					<BarCharts data={activityFalse} />
+					<div className='container default'>
+						<div className='graphHeader'>
+							<h2>Activité quotidienne</h2>
+							<p className='legend'><span>&#x2022;</span>Poids (kg) <span>&#x2022;</span>Calories brûlées (kCal)</p>
+						</div>
+						<BarCharts data={activityFalse} />
+					</div>
 					<div className='row'>
-						<LineCharts data={averageFalse} />
-						<RadarCharts data={performanceFalse} />
-						<PieCharts data={score} />
+						<div className='container second'>
+							<LineCharts data={averageFalse} />
+						</div>
+						<div className='container third'>
+							<RadarCharts data={performanceFalse} />
+						</div>
+						<div className='container default'>
+							<PieCharts data={score} />
+						</div>
 					</div>
 				</div>
-				<section className='recap'> {/* Card are article HTML tag */}
+				<section className='recap'> {/* Cards are article HTML tag */}
 					<Card value='1.930' icon={Calories} name="Calories" unit="kCal" />
 					<Card value='155' icon={Proteines} name="Proteines" unit="g" />
 					<Card value='290' icon={Glucides} name="Glucides" unit="g" />
