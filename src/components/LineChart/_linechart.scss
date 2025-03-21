@@ -6,3 +6,11 @@
     color: $default-color;
     font-size: xx-small;
 }
+.linechartContainer{
+    position: relative;
+ }
+.overlay{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
