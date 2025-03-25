@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const BASE_URL =  'https://localhost:3000/user';
+const BASE_URL =  'http://localhost:3000/user';
 
 const fetchData = async (endpoint, userId) => {
   try {

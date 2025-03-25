@@ -9,16 +9,13 @@ const CustomTooltip = ({ active, payload }) => {
 	return null;
 };
 
-const overlayLegend = (e) =>{
+const overlayLegend = (e) => {
 	const overlay = document.querySelector('.overlay')
-	console.log('event: ',e)
-	console.log('overlay: ',overlay.clientWidth)
-	if(e.isTooltipActive){
-		let mouseX = (e.activeCoordinate.x / overlay.clientWidth)*100
-		console.log('mouseX: ',mouseX)
+	if (e.isTooltipActive) {
+		let mouseX = (e.activeCoordinate.x / overlay.clientWidth) * 100
 		overlay.style.background = `linear-gradient(to right, rgb(230,0,0) ${mouseX}%, rgba(0,0,0,0.1) ${mouseX}%`;
-	}else{
-		overlay.style.background = 'transparent'
+	} else {
+		onmouseout = () => overlay.style.background = 'transparent'
 	}
 }
 
@@ -26,7 +23,7 @@ const LineCharts = ({ data }) => {
 	return (
 		<ResponsiveContainer className='linechartContainer' >
 			<div className='overlay'></div>
-			<LineChart data={data} onMouseMove={(e)=>overlayLegend(e)}>
+			<LineChart data={data} onMouseMove={(e) => overlayLegend(e)}>
 				<text
 					x={20}
 					y={20}

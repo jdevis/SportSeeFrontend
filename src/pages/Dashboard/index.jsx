@@ -18,103 +18,71 @@ import { useParams } from 'react-router-dom'
 
 const Dashboard = () => {
 
-	const averageFalse = [
-		{
-			day: "L",
-			sessionLength: 30
-		},
-		{
-			day: "M",
-			sessionLength: 23
-		},
-		{
-			day: "M",
-			sessionLength: 45
-		},
-		{
-			day: "J",
-			sessionLength: 50
-		},
-		{
-			day: "V",
-			sessionLength: 0
-		},
-		{
-			day: "S",
-			sessionLength: 0
-		},
-		{
-			day: "D",
-			sessionLength: 60
+	const { id } = useParams()
+	const intID = parseInt(id, 10)
+
+	const [userData, setUserData] = useState({
+		main: null,
+		activity: null,
+		sessions: null,
+		performance: null,
+	})
+
+	useEffect(() => {
+		const fetchData = async () => {
+			try {
+				const [
+					mainDataResponse,
+					activityDataResponse,
+					averageSessionDataResponse,
+					performanceDataResponse,
+				] = await Promise.all([
+					userMainData(intID),
+					userActivityData(intID),
+					userSessionData(intID),
+					userPerformanceData(intID),
+				])
+
+				if (
+					!mainDataResponse ||
+					!activityDataResponse ||
+					!averageSessionDataResponse ||
+					!performanceDataResponse
+				) {
+					console.log('main: ',mainDataResponse)
+					console.log('activity: ',activityDataResponse)
+					console.log('session: ',averageSessionDataResponse)
+					console.log('performance; ',performanceDataResponse)
+					throw new Error('Les données reçues sont invalides ou vides.')
+				}
+				setUserData({
+					main: mainDataResponse,
+					activity: activityDataResponse,
+					sessions: averageSessionDataResponse,
+					performance: performanceDataResponse
+				})
+
+			} catch (error) {
+				console.error('Erreur lors du chargement des données :', error)
+				if (error.response) {
+					console.error("Détails de l'erreur API :", error.response.data)
+				}
+			}
 		}
-	]
-	const activityFalse = [
-		{
-			day: '2020-07-01',
-			kilogram: 80,
-			calories: 240
-		},
-		{
-			day: '2020-07-02',
-			kilogram: 80,
-			calories: 220
-		},
-		{
-			day: '2020-07-03',
-			kilogram: 81,
-			calories: 280
-		},
-		{
-			day: '2020-07-04',
-			kilogram: 81,
-			calories: 290
-		},
-		{
-			day: '2020-07-05',
-			kilogram: 80,
-			calories: 160
-		},
-		{
-			day: '2020-07-06',
-			kilogram: 78,
-			calories: 162
-		},
-		{
-			day: '2020-07-07',
-			kilogram: 76,
-			calories: 390
-		}
-	]
-	const performanceFalse = [
-		{
-			value: 80,
-			kind: "Cardio"
-		},
-		{
-			value: 120,
-			kind: "Energie"
-		},
-		{
-			value: 140,
-			kind: "Endurance"
-		},
-		{
-			value: 50,
-			kind: "Force"
-		},
-		{
-			value: 200,
-			kind: "Vitesse"
-		},
-		{
-			value: 90,
-			kind: "Intensité"
-		}
-	]
-	const score = 0.12
+		fetchData()
+	}, [intID])
+
+		const firstName = userData?.main?.userInfos?.firstName
+		const averageSessions = userData?.sessions?.sessions
+		const dailyActivity = userData?.activity?.sessions
+		const performance = userData?.performance?.data
+		const userCount = userData?.main?.keyData;
+		const userScore = userData?.main?.score || userData?.main?.todayScore;
+
 	return (
+		<>{ !userData && (<div>Loading</div>)}
 		<div className='profil'>
-			<h1>Bonjour <span>Toto</span></h1>
+			<h1>Bonjour <span>{firstName}</span></h1>
 			<p>Félicitations ! Vous avez explosé vos objectifs hier 👏</p>
 			<div className='graphWrapper'>
 				<div className='graph'>
@@ -123,28 +91,29 @@ const Dashboard = () => {
 							<h2>Activité quotidienne</h2>
 							<p className='legend'><span>&#x2022;</span>Poids (kg) <span>&#x2022;</span>Calories brûlées (kCal)</p>
 						</div>
-						<BarCharts data={activityFalse} />
+						<BarCharts data={dailyActivity} />
 					</div>
 					<div className='row'>
 						<div className='container second'>
-							<LineCharts data={averageFalse} />
+							<LineCharts data={averageSessions} />
 						</div>
 						<div className='container third'>
-							<RadarCharts data={performanceFalse} />
+							<RadarCharts data={performance} />
 						</div>
 						<div className='container default'>
-							<PieCharts data={score} />
+							<PieCharts data={userScore} />
 						</div>
 					</div>
 				</div>
 				<section className='recap'> {/* Cards are article HTML tag */}
-					<Card value='1.930' icon={Calories} name="Calories" unit="kCal" />
-					<Card value='155' icon={Proteines} name="Proteines" unit="g" />
-					<Card value='290' icon={Glucides} name="Glucides" unit="g" />
-					<Card value='50' icon={Lipides} name="Lipides" unit="g" />
+					<Card value={userCount?.calorieCount} icon={Calories} name="Calories" unit="kCal" />
+					<Card value={userCount?.proteinCount} icon={Proteines} name="Proteines" unit="g" />
+					<Card value={userCount?.carbohydrateCount} icon={Glucides} name="Glucides" unit="g" />
+					<Card value={userCount?.lipidCount} icon={Lipides} name="Lipides" unit="g" />
 				</section>
 			</div>
 		</div>
+		</>
 	)
 }
 export default Dashboard
