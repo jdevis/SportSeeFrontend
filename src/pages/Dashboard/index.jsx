@@ -1,7 +1,8 @@
 /* Retrieving Datas **/
-import { userMainData, userActivityData, userPerformanceData, userSessionData } from '../../services/models';
+import { formatMainData, formatActivityData, formatPerformanceData, formatSessionData } from '../../services/models';
 import { useEffect, useState } from 'react'
-import '../Dashboard/_dashboard.scss'
+import { useParams } from 'react-router-dom'
+import Error from '../Error';
 /* Graphics components **/
 import BarCharts from '../../components/BarChart';
 import LineCharts from '../../components/LineChart';
@@ -13,13 +14,13 @@ import Calories from '../../assets/img/calories-icon.png';
 import Glucides from '../../assets/img/carbs-icon.png';
 import Proteines from '../../assets/img/protein-icon.png';
 import Lipides from '../../assets/img/fat-icon.png';
+import '../Dashboard/_dashboard.scss'
 
-import { useParams } from 'react-router-dom'
 
 const Dashboard = () => {
 
 	const { id } = useParams()
-	const intID = parseInt(id, 10)
+	const intId = parseInt(id)
 
 	const [userData, setUserData] = useState({
 		main: null,
@@ -27,9 +28,11 @@ const Dashboard = () => {
 		sessions: null,
 		performance: null,
 	})
+	const [loading, setLoading] = useState(true);
+	const [error, setError] = useState(null);
 
 	useEffect(() => {
-		const fetchData = async () => {
+		const getData = async () => {
 			try {
 				const [
 					mainDataResponse,
@@ -37,24 +40,11 @@ const Dashboard = () => {
 					averageSessionDataResponse,
 					performanceDataResponse,
 				] = await Promise.all([
-					userMainData(intID),
-					userActivityData(intID),
-					userSessionData(intID),
-					userPerformanceData(intID),
+					formatMainData(intId),
+					formatActivityData(intId),
+					formatSessionData(intId),
+					formatPerformanceData(intId),
 				])
-
-				if (
-					!mainDataResponse ||
-					!activityDataResponse ||
-					!averageSessionDataResponse ||
-					!performanceDataResponse
-				) {
-					console.log('main: ',mainDataResponse)
-					console.log('activity: ',activityDataResponse)
-					console.log('session: ',averageSessionDataResponse)
-					console.log('performance; ',performanceDataResponse)
-					throw new Error('Les données reçues sont invalides ou vides.')
-				}
 				setUserData({
 					main: mainDataResponse,
 					activity: activityDataResponse,
@@ -63,26 +53,23 @@ const Dashboard = () => {
 				})
 
 			} catch (error) {
+				setError(error)
 				console.error('Erreur lors du chargement des données :', error)
 				if (error.response) {
 					console.error("Détails de l'erreur API :", error.response.data)
 				}
+			} finally {
+				setLoading(false)
 			}
 		}
-		fetchData()
-	}, [intID])
+		getData()
+	}, [intId])
 
-		const firstName = userData?.main?.userInfos?.firstName
-		const averageSessions = userData?.sessions?.sessions
-		const dailyActivity = userData?.activity?.sessions
-		const performance = userData?.performance?.data
-		const userCount = userData?.main?.keyData;
-		const userScore = userData?.main?.score || userData?.main?.todayScore;
-
+	if (loading) return <p>Chargement des données...</p>;
+	if (error) return <Error />;
 	return (
-		<>{ !userData && (<div>Loading</div>)}
 		<div className='profil'>
-			<h1>Bonjour <span>{firstName}</span></h1>
+			<h1>Bonjour <span>{userData?.main?.firstName}</span></h1>
 			<p>Félicitations ! Vous avez explosé vos objectifs hier 👏</p>
 			<div className='graphWrapper'>
 				<div className='graph'>
@@ -91,29 +78,28 @@ const Dashboard = () => {
 							<h2>Activité quotidienne</h2>
 							<p className='legend'><span>&#x2022;</span>Poids (kg) <span>&#x2022;</span>Calories brûlées (kCal)</p>
 						</div>
-						<BarCharts data={dailyActivity} />
+						<BarCharts data={userData?.activity} />
 					</div>
 					<div className='row'>
 						<div className='container second'>
-							<LineCharts data={averageSessions} />
+							<LineCharts data={userData?.sessions} />
 						</div>
 						<div className='container third'>
-							<RadarCharts data={performance} />
+							<RadarCharts data={userData?.performance} />
 						</div>
 						<div className='container default'>
-							<PieCharts data={userScore} />
+							<PieCharts data={userData?.main?.score} />
 						</div>
 					</div>
 				</div>
 				<section className='recap'> {/* Cards are article HTML tag */}
-					<Card value={userCount?.calorieCount} icon={Calories} name="Calories" unit="kCal" />
-					<Card value={userCount?.proteinCount} icon={Proteines} name="Proteines" unit="g" />
-					<Card value={userCount?.carbohydrateCount} icon={Glucides} name="Glucides" unit="g" />
-					<Card value={userCount?.lipidCount} icon={Lipides} name="Lipides" unit="g" />
+					<Card value={userData?.main?.calories} icon={Calories} name="Calories" unit="kCal" />
+					<Card value={userData?.main?.proteines} icon={Proteines} name="Proteines" unit="g" />
+					<Card value={userData?.main?.glucides} icon={Glucides} name="Glucides" unit="g" />
+					<Card value={userData?.main?.lipides} icon={Lipides} name="Lipides" unit="g" />
 				</section>
 			</div>
 		</div>
-		</>
 	)
 }
 export default Dashboard

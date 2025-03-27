@@ -53,7 +53,7 @@ const LineCharts = ({ data }) => {
 				<Tooltip content={<CustomTooltip />} />
 				<Line
 					type="natural"
-					dataKey="sessionLength"
+					dataKey="value"
 					stroke="#FBFBFB"
 					dot={false}
 					activeDot={{

@@ -25,7 +25,7 @@ const BarCharts = ({data}) =>{
                     bottom: 10,
                 }} data={data} barGap={8} >
                 <CartesianGrid strokeDasharray="3 3" vertical={false} />
-                <XAxis dataKey="day" axisLine={true} tickLine={false} tick={{ fontSize: '14px', fontWeight: '500' }} dy={15} tickFormatter={(day) => new Date(day).getDate()} />
+                <XAxis dataKey="day" axisLine={true} tickLine={false} tick={{ fontSize: '14px', fontWeight: '500' }} dy={15} />
                 <YAxis yAxisId="left" orientation="left" hide={true} />
                 <YAxis yAxisId="right" orientation="right" axisLine={false} tickLine={false} tickMargin={30} type="number" tick={{ color: '9B9EAC', fontSize: '14px', fontWeight: '500' }} domain={["dataMin - 1", "dataMax + 2"]} />
                 <Tooltip content={<CustomTooltip />} />

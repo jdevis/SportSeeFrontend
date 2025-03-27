@@ -1,33 +1,49 @@
-import { USER_MAIN_DATA, USER_ACTIVITY, USER_AVERAGE_SESSIONS, USER_PERFORMANCE } from "../data/mockData"
-import fetchData from "./fetchers"
+import { userMainData, userActivityData, userSessionData, userPerformanceData } from "./fetchers"
 
-const isMockData = true;
+export const formatMainData = async (id) => {
+    const mainInfos = await userMainData(id)
+    const score = mainInfos.score || mainInfos.todayScore
+    const firstName = mainInfos.userInfos.firstName
+    const calories = mainInfos.keyData.calorieCount
+    const proteines = mainInfos.keyData.proteinCount
+    const lipides = mainInfos.keyData.lipidCount
+    const glucides = mainInfos.keyData.carbohydrateCount
+    return { firstName, score, calories, proteines, lipides, glucides }
+}
 
-export const userMainData = async (id) => {
-    if (isMockData){
-        const userData = USER_MAIN_DATA.find((user) => user.id === id);
-        return userData
-    }
-    return await fetchData('', id)
+export const formatActivityData = async (id) => {
+    const data = await userActivityData(id)
+    const activity = data.sessions.map((session, index) => ({
+        day: index + 1,
+        kilogram: session.kilogram,
+        calories: session.calories,
+    }));
+    return activity
 }
-export const userSessionData = async (id) => {
-    if (isMockData){
-	    const averageSession = USER_AVERAGE_SESSIONS.find((user) => user.userId === id);
-        return averageSession
-    }
-    return await fetchData('average-sessions',id)
+
+export const formatSessionData = async (id) => {
+    const data = await userSessionData(id)
+    const week = ["L", "M", "M", "J", "V", "S", "D"];
+    const sessions = data.sessions.map(({ day, sessionLength }) => ({
+        day: week[day - 1],
+        value: sessionLength,
+    }));
+    return sessions
 }
-export const userActivityData = async (id) => {
-    if (isMockData){
-	    const dailyActivity = USER_ACTIVITY.find((user) => user.userId === id);
-        return dailyActivity
+
+export const formatPerformanceData = async (id) => {
+    const data = await userPerformanceData(id)
+    const translateKind = {
+        1: "Cardio",
+        2: "Energie",
+        3: "Endurance",
+        4: "Force",
+        5: "Vitesse",
+        6: "Intensité",
     }
-    return await fetchData('activity',id)
-}
-export const userPerformanceData = async (id) => {
-    if (isMockData){
-	    const performance = USER_PERFORMANCE.find((user) => user.userId === id);
-        return performance
-    }
-    return await fetchData('performance',id)
+    const performances = data.data.map((performance) => ({
+        kind: translateKind[performance.kind],
+        value: performance.value
+    }));
+    return performances
 }
