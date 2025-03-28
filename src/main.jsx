@@ -9,17 +9,17 @@ import Error from './pages/Error/index.jsx'
 import '../src/assets/styles/index.scss'
 
 createRoot(document.getElementById('root')).render(
-	<StrictMode>
-			<Router>
-				<Header />
-				<main>
-					<SideBar />
-					<Routes>
-						<Route path="/" element={<Home />} />
-						<Route path="/user/:id" element={<Dashboard />} />
-						<Route path="*" element={<Error />} />
-					</Routes>
-				</main>
-			</Router>
-	</StrictMode>
+  <StrictMode>
+    <Router>
+      <Header />
+      <main>
+        <SideBar />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/user/:id" element={<Dashboard />} />
+          <Route path="*" element={<Error />} />
+        </Routes>
+      </main>
+    </Router>
+  </StrictMode>
 )
