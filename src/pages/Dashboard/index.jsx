@@ -1,5 +1,5 @@
 /* Retrieving Datas **/
-import { formatMainData, formatActivityData, formatPerformanceData, formatSessionData } from '../../services/models';
+import { formatMainData, formatActivityData, formatPerformanceData, formatSessionData } from '../../services/models'; // call formating data functions
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import Error from '../Error';
@@ -19,7 +19,7 @@ import '../Dashboard/_dashboard.scss'
 
 const Dashboard = () => {
 
-  const { id } = useParams()
+  const { id } = useParams() // retrieve user id from url
   const intId = parseInt(id)
 
   const [userData, setUserData] = useState({
@@ -65,13 +65,15 @@ const Dashboard = () => {
     getData()
   }, [intId])
 
+  // message display during loading
   if (loading) return (
   	<div className='profil'>
   		<h1>Chargement des données...</h1>
   	</div>
   )
 
-  if (error) return <Error response={error} />
+  if (error) return <Error />
+
   return (
     <div className='profil'>
       <h1>Bonjour <span>{userData?.main?.firstName}</span></h1>

@@ -1,5 +1,8 @@
-import { userMainData, userActivityData, userSessionData, userPerformanceData } from "./fetchers"
+import { userMainData, userActivityData, userSessionData, userPerformanceData } from "./fetchers" // call retrieving functions from fetchers files
 
+// formating data
+
+// user data for piechart and cards
 export const formatMainData = async (id) => {
   const mainInfos = await userMainData(id)
   const score = mainInfos.score || mainInfos.todayScore
@@ -11,6 +14,7 @@ export const formatMainData = async (id) => {
   return { firstName, score, calories, proteines, lipides, glucides }
 }
 
+// barchart
 export const formatActivityData = async (id) => {
   const data = await userActivityData(id)
   const activity = data.sessions.map((session, index) => ({
@@ -21,6 +25,7 @@ export const formatActivityData = async (id) => {
   return activity
 }
 
+// linechart
 export const formatSessionData = async (id) => {
   const data = await userSessionData(id)
   const week = ["L", "M", "M", "J", "V", "S", "D"];
@@ -31,6 +36,7 @@ export const formatSessionData = async (id) => {
   return sessions
 }
 
+// radarchart
 export const formatPerformanceData = async (id) => {
   const data = await userPerformanceData(id)
   const translateKind = {

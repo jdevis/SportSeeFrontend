@@ -2,8 +2,7 @@ import { Link } from "react-router-dom"
 import Home from '../Home'
 import '../Error/_error.scss'
 
-const Error = ({ response }) => {
-  console.log('erreur dans Error: ', response)
+const Error = () => {
   return (
     <div className="error">
       <h1>Erreur 404</h1>

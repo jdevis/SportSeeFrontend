@@ -1,9 +1,10 @@
-import axios from 'axios';
-import { USER_MAIN_DATA, USER_ACTIVITY, USER_AVERAGE_SESSIONS, USER_PERFORMANCE } from "../data/mockData"
+import axios from 'axios'; // Promise based HTTP client
+import { USER_MAIN_DATA, USER_ACTIVITY, USER_AVERAGE_SESSIONS, USER_PERFORMANCE } from "../data/mockData" // mock data
 
-const BASE_URL = 'http://localhost:3000/user';
-const isMockData = true;
+const BASE_URL = 'http://localhost:3000/user'; // API url
+const isMockData = true; // switching mock to API 
 
+// fetching data with axios 
 const fetchData = async (uri, userId) => {
   try {
     const response = await axios.get(`${BASE_URL}/${userId}/${uri}`)
@@ -14,6 +15,7 @@ const fetchData = async (uri, userId) => {
   }
 }
 
+// retrieve data via API or mock
 export const userMainData = async (id) => {
   if (isMockData) {
     const userData = USER_MAIN_DATA.find((user) => user.id === id);
