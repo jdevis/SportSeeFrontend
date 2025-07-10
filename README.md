@@ -1,8 +1,15 @@
 # SportSee
 
-This repo contains all the source code for **SportSee** Openclassrooms training project
+Project 12 [Openclassrooms React application developer training course](https://openclassrooms.com/fr/paths/2288-developpeur-dapplication-react)
+Develop a Web application with React and React Router
+
+## 🚀 Features
 
 The main objective is to create an interactive sports analytics dashboard using **React**, and display graphs and charts with **Recharts** based on data retrieved via a **API**.
+
+-   Develop advanced graphic elements using JavaScript libraries
+-   Interact with a Web service
+-   Ensure application data quality
 
 ## Technologies used
 
